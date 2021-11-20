@@ -12,8 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+class Product {
+  const Product({
+    required this.id,
+    required this.name,
+    //required this.isFeatured,
+    required this.phoneNum,
+    required this.description,
+    required this.location,
+    required this.star,
+  });
 
-import 'app.dart';
+  final int id;
+  //final bool isFeatured;
+  final String name;
+  final String phoneNum;
+  final String description;
+  final String location;
+  final int star;
 
-void main() => runApp(const ShrineApp());
+  String get assetName => '$id.jpg';
+  //String get assetPackage => 'shrine_images';
+
+  @override
+  String toString() => "$name (id=$id)";
+}
