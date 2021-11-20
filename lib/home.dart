@@ -13,7 +13,19 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:shrine/signup.dart';
+import 'package:intl/intl.dart';
+
+import 'model/products_repository.dart';
+import 'model/product.dart';
+import 'package:shrine/message_revise.dart';
+import 'package:shrine/search.dart';
+import 'package:shrine/mypage.dart';
+import 'package:shrine/f_hotels.dart';
+import 'package:shrine/login.dart';
+import 'package:shrine/detail.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+const _url = 'https://www.handong.edu/';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,41 +33,167 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      appBar: AppBar(
+        title: const Text('Main'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.search,
+              semanticLabel: 'search',
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Search()),
+              );
+            },
+          ),
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              child: Text(
+                '메뉴',
+                style: TextStyle(height: 5, fontSize: 30, color: Colors.white),
+              ),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+                leading: IconButton(
+                  icon: const Icon(
+                    Icons.contact_page,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MessageRevise()),
+                    );
+                  },
+                ),
+                title: const Text('연락처 등록'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MessageRevise()),
+                  );
+                }),
+            ListTile(
+                leading: IconButton(
+                  icon: const Icon(
+                    Icons.contact_page_outlined,
+                    semanticLabel: '연락처 관리',
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Search()),
+                    );
+                  },
+                ),
+                title: const Text('연락처 관리'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Search()),
+                  );
+                }),
+            ListTile(
+                leading: IconButton(
+                  icon: const Icon(
+                    Icons.message,
+                    semanticLabel: 'SOS 메세지 수정',
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Hotels()),
+                    );
+                  },
+                ),
+                title: const Text('SOS 메세지 수정'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Hotels()),
+                  );
+                }),
+            ListTile(
+                leading: IconButton(
+                  icon: const Icon(
+                    Icons.person,
+                    semanticLabel: '개인 페이지',
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyPage()),
+                    );
+                  },
+                ),
+                title: const Text('개인 페이지'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyPage()),
+                  );
+                }),
+            ListTile(
+                leading: IconButton(
+                  icon: const Icon(
+                    Icons.logout,
+                    semanticLabel: '로그아웃',
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                    );
+                  },
+                ),
+                title: const Text('로그아웃'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                }),
+          ],
+        ),
+      ),
+      body: Center(
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           children: <Widget>[
             const SizedBox(height: 80.0),
             Column(
               children: <Widget>[
-                Image.asset('assets/sosButton.png'),
-                const SizedBox(height: 16.0),
+                IconButton(
+                  icon : Image.asset('assets/sos_button.png'),
+                  iconSize: 300,
+                  onPressed: () {},
+                ),
+                const SizedBox(height: 30.0),
+                const Text(
+                  '위급상황 시 누르세요!',
+                  style: TextStyle(height: 1, fontSize: 30, color: Colors.black, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
-            const SizedBox(height: 50.0),
-
             ButtonBar(
               children: <Widget>[
-
-                TextButton(
-                  child: const Text('CANCEL'),
-                  onPressed: () {
-                  },
-                ),
                 TextButton(
                   child: const Text('Sign Up'),
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const SignUp()),
+                      MaterialPageRoute(builder: (context) => const LoginPage()),
                     );
-                  },
-                ),
-
-                ElevatedButton(
-                  child: const Text('NEXT'),
-                  onPressed: () {
-                    Navigator.pop(context);
                   },
                 ),
               ],
